@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#653c76">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pool wheel">
+<title>Pool wheel</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#ffffff;color:#695267;font-family:"IBM Plex Sans",Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+main{max-width:480px;margin:0 auto;padding:20px 16px 40px;display:flex;flex-direction:column;gap:20px}
+h1{margin:0;font-size:24px;line-height:1.2;font-weight:700;color:#653c76;text-align:center}
+.stage{position:relative;width:100%;max-width:440px;margin:0 auto;aspect-ratio:1/1;padding-top:14px}
+.wheel{width:100%;height:100%;border:0;padding:0;background:none;cursor:pointer;display:block;border-radius:50%}
+.wheel svg{width:100%;height:100%;display:block}
+.spinner{width:100%;height:100%;transform:rotate(0deg);will-change:transform}
+.pointer{position:absolute;left:50%;top:0;width:0;height:0;margin-left:-16px;border-left:16px solid transparent;border-right:16px solid transparent;border-top:30px solid #2f407f;filter:drop-shadow(0 2px 3px rgba(101,60,118,.35));z-index:2;pointer-events:none}
+.hub{position:absolute;left:50%;top:calc(50% + 7px);width:17%;aspect-ratio:1/1;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:5px solid #653c76;z-index:2;pointer-events:none}
+.btn{appearance:none;border:0;border-radius:999px;background:#653c76;color:#fff;font:700 18px/1 "IBM Plex Sans",Arial,sans-serif;height:56px;width:100%;cursor:pointer;transition:background-color 150ms ease-out,transform 150ms ease-out}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:focus-visible,.wheel:focus-visible,summary:focus-visible{outline:none;box-shadow:0 0 0 2px #fff,0 0 0 4px #79cadb}
+.result{background:#f6f6f6;border-radius:18px;padding:16px 18px;min-height:92px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.result .top{display:flex;align-items:center;gap:10px}
+.result .name{font-size:22px;line-height:1.2;font-weight:700;color:#653c76}
+.result .pts{margin-left:auto;font-size:14px;font-weight:600;color:#695267;white-space:nowrap}
+.result p{margin:0;font-size:16px;line-height:1.45}
+.dot{flex:0 0 14px;width:14px;height:14px;border-radius:50%}
+details{border-top:1px solid rgba(101,60,118,.12);padding-top:12px}
+summary{cursor:pointer;font-weight:700;color:#653c76;font-size:17px;min-height:44px;display:flex;align-items:center;border-radius:8px}
+ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+li{display:flex;gap:10px;align-items:flex-start}
+li .dot{flex-basis:12px;width:12px;height:12px;margin-top:5px}
+li p{margin:0;font-size:15px;line-height:1.4}
+li strong{color:#653c76}
+</style>
+</head>
+<body>
+<main>
+  <h1>Pool wheel</h1>
+  <div class="stage">
+    <div class="pointer"></div>
+    <button class="wheel" id="wheel" type="button" aria-label="Spin the wheel">
+      <div class="spinner" id="spinner"><svg viewBox="0 0 684 684" aria-hidden="true" focusable="false" font-family="IBM Plex Sans, Arial, sans-serif"><circle cx="342" cy="342" r="342" fill="#653c76"/><path d="M342,342 L321.35,46.72 A296,296 0 0 1 362.65,46.72 Z" fill="#111111"/><path d="M342,342 L362.65,46.72 A296,296 0 0 1 501.77,92.82 Z" fill="#653c76"/><path d="M342,342 L501.77,92.82 A296,296 0 0 1 601.72,200.00 Z" fill="#79cadb"/><path d="M342,342 L601.72,200.00 A296,296 0 0 1 638.00,342.00 Z" fill="#e46138"/><path d="M342,342 L638.00,342.00 A296,296 0 0 1 601.72,484.00 Z" fill="#fab743"/><path d="M342,342 L601.72,484.00 A296,296 0 0 1 501.77,591.18 Z" fill="#2f407f"/><path d="M342,342 L501.77,591.18 A296,296 0 0 1 362.65,637.28 Z" fill="#67bd9d"/><path d="M342,342 L321.35,637.28 A296,296 0 0 1 182.23,591.18 Z" fill="#653c76"/><path d="M342,342 L182.23,591.18 A296,296 0 0 1 82.28,484.00 Z" fill="#79cadb"/><path d="M342,342 L82.28,484.00 A296,296 0 0 1 46.00,342.00 Z" fill="#e46138"/><path d="M342,342 L46.00,342.00 A296,296 0 0 1 82.28,200.00 Z" fill="#fab743"/><path d="M342,342 L82.28,200.00 A296,296 0 0 1 182.23,92.82 Z" fill="#2f407f"/><path d="M342,342 L182.23,92.82 A296,296 0 0 1 321.35,46.72 Z" fill="#67bd9d"/><path d="M342,342 L362.65,637.28 A296,296 0 0 1 321.35,637.28 Z" fill="#d4af37"/><text x="270" y="0" transform="translate(342,342) rotate(-90.000)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="14" fill="#ffffff">Full recovery</text><text x="0" y="-313" transform="translate(342,342) rotate(0.000)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">6</text><text x="270" y="0" transform="translate(342,342) rotate(-71.667)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#ffffff">Backwards pool</text><text x="0" y="-313" transform="translate(342,342) rotate(18.333)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">1</text><text x="270" y="0" transform="translate(342,342) rotate(-43.000)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#653c76">No chalk</text><text x="0" y="-313" transform="translate(342,342) rotate(47.000)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">2</text><text x="270" y="0" transform="translate(342,342) rotate(-14.333)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#ffffff">FULL POWER</text><text x="0" y="-313" transform="translate(342,342) rotate(75.667)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">3</text><text x="270" y="0" transform="translate(342,342) rotate(14.333)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#2f407f">Opposite hand</text><text x="0" y="-313" transform="translate(342,342) rotate(104.333)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">4</text><text x="270" y="0" transform="translate(342,342) rotate(43.000)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#ffffff">Resurrection</text><text x="0" y="-313" transform="translate(342,342) rotate(133.000)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">1</text><text x="270" y="0" transform="translate(342,342) rotate(71.667)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#2f407f">Swap sides</text><text x="0" y="-313" transform="translate(342,342) rotate(161.667)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">2</text><text x="270" y="0" transform="translate(342,342) rotate(108.333)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#ffffff">One handed</text><text x="0" y="-313" transform="translate(342,342) rotate(198.333)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">3</text><text x="270" y="0" transform="translate(342,342) rotate(137.000)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#653c76">Spin again and stack</text><text x="270" y="0" transform="translate(342,342) rotate(165.667)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#ffffff">± Cue ball</text><text x="0" y="-313" transform="translate(342,342) rotate(255.667)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">1</text><text x="270" y="0" transform="translate(342,342) rotate(194.333)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#2f407f">Snookered</text><text x="0" y="-313" transform="translate(342,342) rotate(284.333)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">2</text><text x="270" y="0" transform="translate(342,342) rotate(223.000)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#ffffff">Pyramid</text><text x="0" y="-313" transform="translate(342,342) rotate(313.000)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">3</text><text x="270" y="0" transform="translate(342,342) rotate(251.667)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="18" fill="#2f407f">Spin on the clock</text><text x="0" y="-313" transform="translate(342,342) rotate(341.667)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">4</text><text x="270" y="0" transform="translate(342,342) rotate(90.000)" text-anchor="end" dominant-baseline="central" font-weight="700" font-size="14" fill="#111111">Castration</text><text x="0" y="-313" transform="translate(342,342) rotate(180.000)" text-anchor="middle" dominant-baseline="central" font-weight="700" font-size="28" fill="#ffffff">5</text><circle cx="342" cy="342" r="296" fill="none" stroke="#ffffff" stroke-width="3"/><line x1="342" y1="342" x2="318.14" y2="0.83" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="365.86" y2="0.83" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="526.59" y2="54.10" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="642.08" y2="177.94" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="684.00" y2="342.00" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="642.08" y2="506.06" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="526.59" y2="629.90" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="318.14" y2="683.17" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="157.41" y2="629.90" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="41.92" y2="506.06" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="0.00" y2="342.00" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="41.92" y2="177.94" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="157.41" y2="54.10" stroke="#ffffff" stroke-width="2"/><line x1="342" y1="342" x2="365.86" y2="683.17" stroke="#ffffff" stroke-width="2"/><circle cx="342" cy="342" r="341" fill="none" stroke="#ffffff" stroke-width="2"/></svg></div>
+    </button>
+    <div class="hub"></div>
+  </div>
+  <button class="btn" id="spin" type="button">Spin</button>
+  <div class="result" id="result" aria-live="polite">
+    <p id="hint">Tap Spin or the wheel.</p>
+  </div>
+  <details>
+    <summary>All rules</summary>
+    <ul><li><span class="dot" style="background:#653c76"></span><p><strong>Backwards pool:</strong> Your colours become the cue ball. Strike one of your colours instead of the white; it must hit the white before anything is potted.</p></li><li><span class="dot" style="background:#79cadb"></span><p><strong>No chalk:</strong> No chalking. Polish your tip instead. Opponent may help</p></li><li><span class="dot" style="background:#e46138"></span><p><strong>FULL POWER:</strong> Hit the cue ball as hard as you can. Holding back is a foul.</p></li><li><span class="dot" style="background:#fab743"></span><p><strong>Opposite hand:</strong> Play with your other hand.</p></li><li><span class="dot" style="background:#2f407f"></span><p><strong>Resurrection:</strong> Before your shot, your opponent puts one of your potted balls back on the table, anywhere they like.</p></li><li><span class="dot" style="background:#67bd9d"></span><p><strong>Swap sides:</strong> Swap colours with your opponent. If you were reds, you’re now yellows.</p></li><li><span class="dot" style="background:#653c76"></span><p><strong>One handed:</strong> No bridge hand. You can use the rest, but you can’t hold it.</p></li><li><span class="dot" style="background:#79cadb"></span><p><strong>Spin again and stack:</strong> Spin again. The number on the rim where your first re-spin lands is how many more spins you do. All the rules stack.</p></li><li><span class="dot" style="background:#e46138"></span><p><strong>± Cue ball:</strong> Place an extra cue ball anywhere behind the baulk line. If there are already two on the table, your opponent removes one.</p></li><li><span class="dot" style="background:#fab743"></span><p><strong>Snookered:</strong> Your opponent can move any ball on the table, as long as it leaves you snookered.</p></li><li><span class="dot" style="background:#2f407f"></span><p><strong>Pyramid:</strong> Pot the white along with your object ball. On your next turn, place the white anywhere. Potting with no pyramid is a foul.</p></li><li><span class="dot" style="background:#67bd9d"></span><p><strong>Spin on the clock:</strong> Look at a clock, strike the cue ball wherever the second hand is pointing, as if the ball were the clock face.</p></li><li><span class="dot" style="background:#111111"></span><p><strong>Full recovery:</strong> All your balls go back on the table, spaced evenly along the long centre line.</p></li><li><span class="dot" style="background:#d4af37"></span><p><strong>Castration:</strong> All your balls come off the table. You’re now on the 8 ball.</p></li></ul>
+  </details>
+</main>
+<script>
+(function () {
+  var SLICES = [{"label": "Full recovery", "rule": "All your balls go back on the table, spaced evenly along the long centre line.", "bg": "#111111", "pts": 6, "s": -4, "e": 4}, {"label": "Backwards pool", "rule": "Your colours become the cue ball. Strike one of your colours instead of the white; it must hit the white before anything is potted.", "bg": "#653c76", "pts": 1, "s": 4.0, "e": 32.66666666666667}, {"label": "No chalk", "rule": "No chalking. Polish your tip instead. Opponent may help", "bg": "#79cadb", "pts": 2, "s": 32.66666666666667, "e": 61.33333333333334}, {"label": "FULL POWER", "rule": "Hit the cue ball as hard as you can. Holding back is a foul.", "bg": "#e46138", "pts": 3, "s": 61.333333333333336, "e": 90.0}, {"label": "Opposite hand", "rule": "Play with your other hand.", "bg": "#fab743", "pts": 4, "s": 90.0, "e": 118.66666666666667}, {"label": "Resurrection", "rule": "Before your shot, your opponent puts one of your potted balls back on the table, anywhere they like.", "bg": "#2f407f", "pts": 1, "s": 118.66666666666667, "e": 147.33333333333334}, {"label": "Swap sides", "rule": "Swap colours with your opponent. If you were reds, you’re now yellows.", "bg": "#67bd9d", "pts": 2, "s": 147.33333333333334, "e": 176.0}, {"label": "One handed", "rule": "No bridge hand. You can use the rest, but you can’t hold it.", "bg": "#653c76", "pts": 3, "s": 184.0, "e": 212.66666666666666}, {"label": "Spin again and stack", "rule": "Spin again. The number on the rim where your first re-spin lands is how many more spins you do. All the rules stack.", "bg": "#79cadb", "pts": null, "s": 212.66666666666666, "e": 241.33333333333331}, {"label": "± Cue ball", "rule": "Place an extra cue ball anywhere behind the baulk line. If there are already two on the table, your opponent removes one.", "bg": "#e46138", "pts": 1, "s": 241.33333333333334, "e": 270.0}, {"label": "Snookered", "rule": "Your opponent can move any ball on the table, as long as it leaves you snookered.", "bg": "#fab743", "pts": 2, "s": 270.0, "e": 298.6666666666667}, {"label": "Pyramid", "rule": "Pot the white along with your object ball. On your next turn, place the white anywhere. Potting with no pyramid is a foul.", "bg": "#2f407f", "pts": 3, "s": 298.6666666666667, "e": 327.33333333333337}, {"label": "Spin on the clock", "rule": "Look at a clock, strike the cue ball wherever the second hand is pointing, as if the ball were the clock face.", "bg": "#67bd9d", "pts": 4, "s": 327.33333333333337, "e": 356.00000000000006}, {"label": "Castration", "rule": "All your balls come off the table. You’re now on the 8 ball.", "bg": "#d4af37", "pts": 5, "s": 176, "e": 184}];
+  var spinner = document.getElementById('spinner');
+  var btn = document.getElementById('spin');
+  var wheelBtn = document.getElementById('wheel');
+  var result = document.getElementById('result');
+  var rotation = 0, spinning = false;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DURATION = reduce ? 1200 : 5000;
+
+  function rnd() {
+    try { var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] / 4294967296; }
+    catch (e) { return Math.random(); }
+  }
+  function sliceAt(angle) {
+    for (var i = 0; i < SLICES.length; i++) {
+      var s = SLICES[i], a = angle;
+      if (s.s < 0 && a >= 360 + s.s) a -= 360;
+      if (a >= s.s && a < s.e) return s;
+    }
+    return SLICES[0];
+  }
+  function show(s) {
+    result.textContent = '';
+    var top = document.createElement('div'); top.className = 'top';
+    var dot = document.createElement('span'); dot.className = 'dot'; dot.style.background = s.bg;
+    var name = document.createElement('span'); name.className = 'name'; name.textContent = s.label;
+    top.appendChild(dot); top.appendChild(name);
+    if (s.pts !== null) { var p = document.createElement('span'); p.className = 'pts'; p.textContent = 'Rim number ' + s.pts; top.appendChild(p); }
+    var rule = document.createElement('p'); rule.textContent = s.rule;
+    result.appendChild(top); result.appendChild(rule);
+  }
+  function spin() {
+    if (spinning) return;
+    spinning = true; btn.disabled = true; wheelBtn.disabled = true;
+    result.textContent = ''; var t = document.createElement('p'); t.textContent = 'Spinning…'; result.appendChild(t);
+    rotation += 360 * (reduce ? 1 : 5) + rnd() * 360;
+    spinner.style.transition = 'transform ' + DURATION + 'ms cubic-bezier(0.12, 0.7, 0.1, 1)';
+    spinner.style.transform = 'rotate(' + rotation + 'deg)';
+    setTimeout(function () {
+      var under = (360 - (rotation % 360)) % 360;
+      show(sliceAt(under));
+      spinning = false; btn.disabled = false; wheelBtn.disabled = false;
+    }, DURATION + 60);
+  }
+  btn.addEventListener('click', spin);
+  wheelBtn.addEventListener('click', spin);
+})();
+</script>
+</body>
+</html>
